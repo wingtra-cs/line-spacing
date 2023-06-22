@@ -28,7 +28,7 @@ choice = st.selectbox('📷 Select Payload Used :',
                        'Micasense RedEdge-P'))
 
 h = st.number_input('🛫 Height Above Ground (meters)')
-ovr = st.number_input('🥃 Side Overlap (%)')/100
+ovr = st.number_input('⏹️ Side Overlap (%)')/100
 
 if choice == '[Payload]':
     st.stop()
