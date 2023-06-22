@@ -19,7 +19,7 @@ camera = {'RGB61': {'f': 24, 'w': 35.7, 'h': 23.9},
           'a6100 Oblique': {'f': 12, 'w': 23.5, 'h': 15.6},
           'Micasense RedEdge-P': {'f': 10.3, 'w': 8.5, 'h': 7.1}}
 
-choice = st.selectbox('📷 Select Payload Used :',
+choice = st.selectbox('📷 Select Payload Used',
                       ('[Payload]', 
                        'RGB61', 
                        'RX1', 
@@ -27,7 +27,17 @@ choice = st.selectbox('📷 Select Payload Used :',
                        'a6100 Oblique', 
                        'Micasense RedEdge-P'))
 
-h = st.number_input('🛫 Height Above Ground (meters)')
+col1, col2 = st.columns(2)
+
+with col1:
+    h = st.number_input('🛫 Height Above Ground')
+with col2:
+    unit = st.selectbox('📐 Height Units', ('[units]', 'meters', 'feet'))
+    if unit == '[units]':
+        st.stop()
+    elif unit == 'feet':
+        h = h*0.3048
+    
 ovr = st.number_input('🖼️ Side Overlap (%)')/100
 
 if choice == '[Payload]':
@@ -46,4 +56,8 @@ if h == 0 or ovr == 0:
     st.stop()
 else:
     if st.button('Compute Flight Line Spacing'):
-        st.text(f'Line spacing for the mission is {round(s,2):.2f} meters.')
+        if unit == 'feet':
+            s = s*3.28084
+            st.text(f'Line spacing for the mission is {round(s,2):.2f} feet.')
+        else:
+            st.text(f'Line spacing for the mission is {round(s,2):.2f} meters.')
