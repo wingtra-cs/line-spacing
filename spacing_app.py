@@ -52,7 +52,7 @@ else:
     
     s = (1-ovr)*d
 
-if h == 0 or ovr == 0:
+if h <= 0 or ovr <= 0:
     st.stop()
 else:
     if st.button('Compute Flight Line Spacing'):
